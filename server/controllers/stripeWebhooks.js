@@ -28,13 +28,20 @@ export const stripeWebhooks = async (request, response) => {
                     isPaid: true,
                     paymentLink: ""
                 })
+
+                // send confirmation email
+                await inngest.send({
+                    name: "app/show.booked",
+                    date: { bookingId }
+                })
+
                 break;
             }
 
             default:
                 console.log('Unhandled event type:', event.type)
         }
-        response.json({received: true})
+        response.json({ received: true })
     } catch (err) {
         console.error("Webhook processing error:", err);
         response.status(500).send("Internal Server Error");
