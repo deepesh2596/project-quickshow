@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import Title from '../../components/admin/Title'
-import { dummyShowsData } from '../../assets/assets';
+import React, { useEffect, useState } from 'react';
+import Title from '../../components/admin/Title';
 import Loading from '../../components/Loading';
 import { CheckIcon, DeleteIcon, StarIcon } from 'lucide-react';
 import { kConverter } from '../../lib/kConverter';
+import { useAppContext } from '../../context/AppContext';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const AddShows = () => {
+
+  const { axios, getToken, user, image_base_url } = useAppContext()
 
   const currency = import.meta.env.VITE_CURRENCY
 
@@ -14,9 +18,17 @@ const AddShows = () => {
   const [dateTimeSelection, setDateTimeSelection] = useState({});
   const [dateTimeInput, setDateTimeInput] = useState("");
   const [showPrice, setShowPrice] = useState("");
+  const [addingShow, setAddingShow] = useState(false);
 
   const fetchNowPlayingMovies = async () => {
-    setNowPlayingMovies(dummyShowsData)
+    try {
+      const { data } = await axios.get('/api/show/now-playing', { headers: { Authorization: `Bearer ${await getToken()}` }})
+      if (data.success) {
+        setNowPlayingMovies(data.movies)
+      }
+    } catch (error) {
+      console.error("Error fetching now playing movies", error);
+    }
   }
 
   const handleDateTimeAdd = () => {
@@ -44,10 +56,44 @@ const AddShows = () => {
     })
   }
 
+  const handleSubmit = async () => {
+    try {
+      setAddingShow(true)
+
+      if (!selectedMovie || Object.keys(dateTimeSelection).length === 0 || !showPrice) {
+        return toast("Please select a movie, date-time, and show price.")
+      }
+
+      const showsInput = Object.entries(dateTimeSelection).map(([date, time]) => ({ date, time }));
+
+      const payload = {
+        movieId: selectedMovie,
+        showsInput,
+        showPrice: Number(showPrice)
+      }
+      const { data } = await axios.post('/api/show/add', payload, { headers: { Authorization: `Bearer ${await getToken()}` }})
+
+      if (data.success) {
+        toast.success(data.message)
+        setSelectedMovie(null)
+        setDateTimeSelection({})
+        setShowPrice("")
+      } else {
+        toast.error(data.message)
+      }
+
+    } catch (error) {
+      console.error("Error adding show", error);
+      toast.error("Failed to add show. Please try again.");
+    }
+    setAddingShow(false)
+  }
 
   useEffect(() => {
-    fetchNowPlayingMovies();
-  }, []);
+    if (user) {
+      fetchNowPlayingMovies();
+    }
+  }, [user]);
 
   return nowPlayingMovies.length > 0 ? (
     <>
@@ -58,7 +104,7 @@ const AddShows = () => {
           {nowPlayingMovies.map((movie) => (
             <div key={movie.id} className={`relative max-w-40 cursor-pointer group-hover:not-hover:opacity-40 hover:-translate-y-1 transition duration-300`} onClick={() => { setSelectedMovie(movie.id) }}>
               <div className='relative rounded-lg overflow-hidden'>
-                <img src={movie.poster_path} alt="" className='w-full object-cover brightness-90' />
+                <img src={image_base_url + movie.poster_path} alt="" className='w-full object-cover brightness-90' />
                 <div className='text-sm flex items-center justify-between p-2 bg-black/70 w-full absolute bottom-0 left-0'>
                   <p className='flex items-center gap-1 text-gray-400'>
                     <StarIcon className='w-4 h-4 text-primary fill-primary' />
@@ -104,25 +150,25 @@ const AddShows = () => {
         {Object.keys(dateTimeSelection).length > 0 && (
           <div className='mt-6'>
             <h2>Selected Date-Time</h2>
-              <ul className='space-y-3'>
-                {Object.entries(dateTimeSelection).map(([date, times]) => (
-                  <li key={date}>
-                    <div className='font-medium'>{date}</div>
-                    <div className='flex flex-wrap gap-2 mt-1 text-sm'>
-                      {times.map((time) => (
-                        <div key={time} className='border border-primary px-2 py-1 flex items-center rounded'>
-                          <span>{time}</span>
-                          <DeleteIcon onClick={()=>handleRemoveTime(date,time)} width={15} className='ml-2 text-red-500 hover:text-red-700 cursor-pointer'/>
-                        </div>
-                      ))}
-                    </div>
-                  </li>
-                ))}
-              </ul>
+            <ul className='space-y-3'>
+              {Object.entries(dateTimeSelection).map(([date, times]) => (
+                <li key={date}>
+                  <div className='font-medium'>{date}</div>
+                  <div className='flex flex-wrap gap-2 mt-1 text-sm'>
+                    {times.map((time) => (
+                      <div key={time} className='border border-primary px-2 py-1 flex items-center rounded'>
+                        <span>{time}</span>
+                        <DeleteIcon onClick={() => handleRemoveTime(date, time)} width={15} className='ml-2 text-red-500 hover:text-red-700 cursor-pointer' />
+                      </div>
+                    ))}
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 
-        <button className='bg-primary text-white px-8 py-2 mt-6 rounded hover:bg-primary/90 transition-all cursor-pointer'>Add Show</button>
+        <button onClick={handleSubmit} disabled={addingShow} className='bg-primary text-white px-8 py-2 mt-6 rounded hover:bg-primary/90 transition-all cursor-pointer'>Add Show</button>
       </div>
     </>
   ) : <Loading />
