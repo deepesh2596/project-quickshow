@@ -3,7 +3,6 @@ import Loading from '../../components/Loading';
 import Title from '../../components/admin/Title';
 import { dateFormat } from '../../lib/dateFormat';
 import { useAppContext } from '../../context/AppContext';
-import axios from 'axios';
 
 const ListBookings = () => {
 
@@ -17,7 +16,7 @@ const ListBookings = () => {
   const getAllBookings = async () => {
         try {
           const { data } = await axios.get('/api/admin/all-bookings', { headers: { Authorization: `Bearer ${await getToken()}` } });
-          setBookings(data.bookings);
+          setBookings(data.bookings)
         } catch (error) {
           console.error(error)
         }

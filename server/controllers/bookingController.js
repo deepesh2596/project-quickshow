@@ -30,8 +30,8 @@ export const createBooking = async (req, res) => {
 
         // check if the seat is available for the selected show
         const isAvailable = await checkSeatsAvailability(showId, selectedSeats);
-        
-        if(!isAvailable) {
+
+        if (!isAvailable) {
             return res.json({ success: false, message: 'Selected seats are not available' });
         }
 
@@ -79,18 +79,18 @@ export const createBooking = async (req, res) => {
             expires_at: Math.floor(Date.now() / 1000) + 30 * 60 // expires in 30 minutes
         })
 
-        booking.paymentlink = session.url
+        booking.paymentLink = session.url
         await booking.save()
 
         // Run inngest scheduler function to check payment status after 10 mins
         await inngest.send({
-            name: "app/checkPayment",
+            name: "app/checkpayment",
             data: {
                 bookindId: booking._id.toString()
             }
         })
 
-        res.json({ success: true, url: session.url})
+        res.json({ success: true, url: session.url })
 
     } catch (error) {
         console.log(error.message);

@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { assets, dummyDateTimeData, dummyShowsData } from '../assets/assets'
+import { assets } from '../assets/assets'
 import Loading from '../components/Loading'
 import { ArrowRightIcon, ClockIcon } from 'lucide-react'
 import isoTimeFormat from '../lib/isoTimeFormat'
 import BlurCircle from '../components/BlurCircle'
 import toast from 'react-hot-toast'
 import { useAppContext } from '../context/AppContext'
-import axios from 'axios';
 
 const SeatLayout = () => {
 
@@ -43,7 +42,7 @@ const SeatLayout = () => {
       return toast("You can only select 5 seats")
     }
     if (occupiedSeats.includes(seatId)) {
-      return toast('Selected Seat already booked')
+      return toast('Selected Seat is already booked')
     }
     setSelectedSeats(prev => prev.includes(seatId) ? prev.filter(seat => seat !== seatId) : [...prev, seatId])
   }
@@ -83,10 +82,10 @@ const SeatLayout = () => {
 
       if (!selectedTime || !selectedSeats.length) return toast.error('Select time and seat to proceed further')
 
-      const { data } = await axios.post('/api/booking/create', { showId: selectedTime.showId, selectedSeats }, { headers: { Authorization: `Bearer ${await getToken()}` }})
-      if(data.success){
+      const { data } = await axios.post('/api/booking/create', { showId: selectedTime.showId, selectedSeats }, { headers: { Authorization: `Bearer ${await getToken()}` } })
+      if (data.success) {
         window.location.href = data.url;
-      }else{
+      } else {
         toast.error(data.message)
       }
     } catch (error) {

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { dummyDateTimeData, dummyShowsData } from '../assets/assets'
 import BlurCircle from '../components/BlurCircle'
 import { Heart, PlayCircleIcon, StarIcon } from 'lucide-react'
 import timeFormat from '../lib/timeFormat'
@@ -9,7 +8,6 @@ import MovieCard from '../components/MovieCard'
 import Loading from '../components/Loading'
 import { useAppContext } from '../context/AppContext'
 import toast from 'react-hot-toast'
-import axios from 'axios';
 
 const MovieDetails = () => {
 
@@ -21,7 +19,7 @@ const MovieDetails = () => {
 
   const getShow = async () => {
     try {
-      const { data } = await axios.get("/api/show/${id}")
+      const { data } = await axios.get(`/api/show/${id}`)
       if (data.success) {
         setShow(data)
       }

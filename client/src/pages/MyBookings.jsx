@@ -4,7 +4,6 @@ import BlurCircle from '../components/BlurCircle'
 import timeFormat from '../lib/timeFormat'
 import { dateFormat } from '../lib/dateFormat'
 import { useAppContext } from '../context/AppContext'
-import axios from 'axios';
 import { Link } from 'react-router-dom'
 
 const MyBookings = () => {

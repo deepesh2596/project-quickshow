@@ -3,7 +3,7 @@ import Loading from '../../components/Loading';
 import Title from '../../components/admin/Title';
 import { dateFormat } from '../../lib/dateFormat';
 import { useAppContext } from '../../context/AppContext';
-import axios from 'axios';
+
 
 const ListShows = () => {
 
@@ -17,8 +17,8 @@ const ListShows = () => {
   const getAllShows = async () => {
     try {
 
-      const { data } = await axios.get('/api/admin/all-shows', { headers: { Authorization: `Bearer ${await getToken()}` } });
-      setShows(data.shows);
+      const { data } = await axios.get("/api/admin/all-shows", { headers: { Authorization: `Bearer ${await getToken()}` } });
+      setShows(data.shows)
       setLoading(false);
 
     } catch (error) {

@@ -6,7 +6,7 @@ import BlurCircle from '../../components/BlurCircle'
 import { dateFormat } from '../../lib/dateFormat'
 import { useAppContext } from '../../context/AppContext';
 import toast from 'react-hot-toast'
-import axios from 'axios';
+
 
 const Dashboard = () => {
 
