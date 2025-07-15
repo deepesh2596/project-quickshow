@@ -39,6 +39,7 @@ export const addShow = async (req, res) => {
 
             const movieDetails = {
                 _id: movieId,
+                tmdbId: movieApiData.id,
                 title: movieApiData.title,
                 overview: movieApiData.overview,
                 poster_path: movieApiData.poster_path,
