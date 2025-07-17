@@ -83,6 +83,7 @@ const SeatLayout = () => {
       if (!selectedTime || !selectedSeats.length) return toast.error('Select time and seat to proceed further')
 
       const { data } = await axios.post('/api/booking/create', { showId: selectedTime.showId, selectedSeats }, { headers: { Authorization: `Bearer ${await getToken()}` } })
+
       if (data.success) {
         window.location.href = data.url;
       } else {
@@ -110,12 +111,13 @@ const SeatLayout = () => {
       <div className='w-60 bg-primary/10 border border-primary/20 rounded-lg py-10 h-max md:sticky md:top-30'>
         <p className='text-lg font-semibold px-6'>Available Timings</p>
         <div className='mt-5 space-y-1'>
-          {show.dateTime[date].map((item) => (
-            <div key={item.time} onClick={() => setSelectedTime(item)} className={`flex items-center gap-2 px-6 py-2 w-max rounded-r-md cursor-pointer transition ${selectedTime?.time === item.time ? "bg-primary text-white" : "hover:bg-primary/10"}`}>
-              <ClockIcon className='w-4 h-4' />
-              <p className='text-sm'>{isoTimeFormat(item.time)}</p>
-            </div>
-          ))}
+          {Array.isArray(show?.dateTime?.[date]) &&
+            show.dateTime[date].map((item) => (
+              <div key={item.time} onClick={() => setSelectedTime(item)} className={`flex items-center gap-2 px-6 py-2 w-max rounded-r-md cursor-pointer transition ${selectedTime?.time === item.time ? "bg-primary text-white" : "hover:bg-primary/20"}`}>
+                <ClockIcon className='w-4 h-4' />
+                <p className='text-sm'>{isoTimeFormat(item.time)}</p>
+              </div>
+            ))}
         </div>
       </div>
 
