@@ -98,22 +98,22 @@ npm run dev
 -- A confirmation email is sent to the user's registered email via Nodemailer.
 
 🙌 Acknowledgements
-Huge thanks to the dev community and open-source contributors for making tools like Clerk, Inngest, and TMDB available.
+- Huge thanks to the dev community and open-source contributors for making tools like Clerk, Inngest, and TMDB available.
 
 📬 Contact
-Developer: Deepesh Chauhan
-Email: deepesh2596@gmail.com
-LinkedIn: linkedin.com/in/deepesh-chauhan
+- Developer: Deepesh Chauhan
+- Email: deepesh2596@gmail.com
+- LinkedIn: linkedin.com/in/deepesh-chauhan
 
 🏁 Final Notes
-QuickShow is a modern, production-ready, full-stack project built to demonstrate real-world features like:
+-QuickShow is a modern, production-ready, full-stack project built to demonstrate real-world features like:
 
 Authentication
-Role-based access
-Event-driven emails
-API integrations
-Secure payments
+- Role-based access
+- Event-driven emails
+- API integrations
+- Secure payments
 
-It’s deployed live and ready to use — give it a try!
+**It’s deployed live and ready to use — give it a try!**
 
 
