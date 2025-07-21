@@ -56,21 +56,22 @@ npm install
 touch .env
 
 # Example .env content
-MONGODB_URI= your_mongodb_connection_string
-CLERK_SECRET_KEY= your_clerk_secret
-CLERK_PUBLISHABLE_KEY= your_clerk_publishable
-INNGEST_EVENT_API_KEY= your_inngest_event_key
-INNGEST_SIGNING_KEY= your_inngest_signing_key
-TMDB_API_KEY= your_tmdb_api_key
-STRIPE_SECRET_KEY= your_stripe_secret
-STRIPE_PUBLISHABLE_KEY= your_stripe_publishable_key
-STRIPE_WEBHOOK_SECRET= your_stripe_webhooksecret
-SENDER_EMAIL= your_email@example.com
-SMTP_USER= your_smtp_user
-SMTP_PASS= your_smtp_password
-VITE_CURRENCY= your_vite_currency
-VITE_BASE_URL=http://localhost:3000
-VITE_TMDB_IMAGE_BASE_URL= your_tmdb_image_base_url
+
+- MONGODB_URI= your_mongodb_connection_string
+- CLERK_SECRET_KEY= your_clerk_secret
+- CLERK_PUBLISHABLE_KEY= your_clerk_publishable
+- INNGEST_EVENT_API_KEY= your_inngest_event_key
+- INNGEST_SIGNING_KEY= your_inngest_signing_key
+- TMDB_API_KEY= your_tmdb_api_key
+- STRIPE_SECRET_KEY= your_stripe_secret
+- STRIPE_PUBLISHABLE_KEY= your_stripe_publishable_key
+- STRIPE_WEBHOOK_SECRET= your_stripe_webhooksecret
+- SENDER_EMAIL= your_email@example.com
+- SMTP_USER= your_smtp_user
+- SMTP_PASS= your_smtp_password
+- VITE_CURRENCY= your_vite_currency
+- VITE_BASE_URL=http://localhost:3000
+- VITE_TMDB_IMAGE_BASE_URL= your_tmdb_image_base_url
 
 
 # Start backend server
