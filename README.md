@@ -87,15 +87,15 @@ npm run dev
 ---
 
 ✅ Admin Access
--Admin access is not granted by default.
--You must assign the admin role to a user's email manually through the Clerk dashboard.
+- Admin access is not granted by default.
+- You must assign the admin role to a user's email manually through the Clerk dashboard.
 
 📩 Booking Confirmation Flow
--User books a movie and selects seats.
--They are redirected to Stripe for payment.
--After successful payment:
---An Inngest event is triggered (app/show.booked).
---A confirmation email is sent to the user's registered email via Nodemailer.
+- User books a movie and selects seats.
+- They are redirected to Stripe for payment.
+- After successful payment:
+-- An Inngest event is triggered (app/show.booked).
+-- A confirmation email is sent to the user's registered email via Nodemailer.
 
 🙌 Acknowledgements
 Huge thanks to the dev community and open-source contributors for making tools like Clerk, Inngest, and TMDB available.
