@@ -61,7 +61,7 @@ touch .env
 - VITE_CURRENCY= '$'
 - CLERK_PUBLISHABLE_KEY= your_clerk_publishable_key
 - VITE_BASE_URL=http://localhost:3000 (your backend url)
-  TMDB_IMAGE_BASE_URL= your_TMDB_image_url
+- TMDB_IMAGE_BASE_URL= your_TMDB_image_url
 
 ## **Backend .env**  
 - MONGODB_URI= your_mongodb_uri
