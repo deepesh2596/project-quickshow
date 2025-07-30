@@ -55,23 +55,28 @@ npm install
 # Create a .env file and add the necessary environment variables
 touch .env
 
-# Example .env content
+# Example .env content (create .env using your credentials)
 
-- MONGODB_URI= your_mongodb_connection_string
-- CLERK_SECRET_KEY= your_clerk_secret
-- CLERK_PUBLISHABLE_KEY= your_clerk_publishable
-- INNGEST_EVENT_API_KEY= your_inngest_event_key
+## **Frontend .env**
+- VITE_CURRENCY= '$'
+- CLERK_PUBLISHABLE_KEY= your_clerk_publishable_key
+- VITE_BASE_URL=http://localhost:3000 (your backend url)
+  TMDB_IMAGE_BASE_URL= your_TMDB_image_url
+
+## **Backend .env**  
+- MONGODB_URI= your_mongodb_uri
+- CLERK_PUBLISHABLE_KEY= your_clerk_publishable_key
+- CLERK_SECRET_KEY= your_clerk_secret_key
+- STRIPE_SECRET_KEY= your_stripe_secret
+- INNGEST_EVENT_API_KEY= your_inngest_event_api_key
 - INNGEST_SIGNING_KEY= your_inngest_signing_key
 - TMDB_API_KEY= your_tmdb_api_key
-- STRIPE_SECRET_KEY= your_stripe_secret
 - STRIPE_PUBLISHABLE_KEY= your_stripe_publishable_key
-- STRIPE_WEBHOOK_SECRET= your_stripe_webhooksecret
-- SENDER_EMAIL= your_email@example.com
-- SMTP_USER= your_smtp_user
-- SMTP_PASS= your_smtp_password
-- VITE_CURRENCY= your_vite_currency
-- VITE_BASE_URL=http://localhost:3000
-- VITE_TMDB_IMAGE_BASE_URL= your_tmdb_image_base_url
+- STRIPE_SECRET_KEY= your_stripe_secret_key
+- STRIPE_WEBHOOK_SECRET= your_stripe_webhook_secret
+- SENDER_EMAIL=brevo_sender_email
+- SMTP_USER=your_smtp_user_key
+- SMTP_PASS=your_smtp_pass
 
 
 # Start backend server
